@@ -1,0 +1,18 @@
+Source: example
+Section: utils
+Priority: optional
+Maintainer: Your Name <you@example.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.7.2
+Homepage: https://example.com
+Rules-Requires-Root: no
+
+Package: example
+Architecture: all
+Depends: ${misc:Depends}
+Description: Placeholder Debian package built from this scaffold
+ Replace every field in this stanza before this ships anywhere: Source,
+ Maintainer, Homepage, Package, and this Description. Rename every other
+ instance of "example" under debian/ (the .install file, the changelog
+ entries, this file) and src/ to match, and drop debian/example.install's
+ own contents in favour of what your real package actually installs.

@@ -1,0 +1,22 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: example
+Source: https://example.com
+
+# Placeholder. Replace License below (both stanzas) with the actual licence
+# this package ships under — SPDX identifiers such as MIT, Apache-2.0, or
+# GPL-3.0-or-later are the usual choices — and add the licence's full text
+# in a "License:" stanza of its own if it isn't one of the short-names DEP-5
+# already knows. See https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+# for the full spec.
+
+Files: *
+Copyright: 2026 Your Name <you@example.com>
+License: placeholder-replace-me
+ This is a placeholder. Replace it with the real licence text or a DEP-5
+ short-name before this package ships.
+
+Files: debian/*
+Copyright: 2026 Your Name <you@example.com>
+License: placeholder-replace-me
+ This is a placeholder. Replace it with the real licence text or a DEP-5
+ short-name before this package ships.

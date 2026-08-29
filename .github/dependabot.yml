@@ -1,0 +1,50 @@
+# Runs from day one, not deferred: public repos get unlimited GitHub Actions
+# minutes, so there's no metering reason to hold off, and a dependency bump
+# that needs a config change on our side surfaces here rather than on day
+# one of the first real project stamped from this template.
+#
+# Dependabot raises the pull request; CI decides whether it lands. Everything
+# here is pinned to an exact version, which is the whole reason this works —
+# a floating range drifts silently and there's nothing to raise a pull
+# request about.
+#
+# One pin Dependabot can't see, updated by hand: debian:bookworm-slim's
+# digest in scripts/build-deb.sh. It's digest-pinned but not in a manifest
+# any of Dependabot's ecosystems watch — re-resolve it from the tag when it
+# needs bumping.
+version: 2
+
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Amsterdam
+    commit-message:
+      # github-actions changes the pipeline, not what ships, so this stays
+      # ci: rather than fix: — see releases.md's "Dependency bots" section.
+      prefix: ci
+      include: scope
+    groups:
+      actions:
+        patterns: ["*"]
+        update-types: [minor, patch]
+
+  # Nothing here is JavaScript. package.json exists so commitlint can
+  # resolve the shared config it extends, which bunx alone cannot do.
+  - package-ecosystem: bun
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Amsterdam
+    commit-message:
+      prefix: chore
+      include: scope
+    groups:
+      tooling:
+        patterns: ["*"]
+        update-types: [minor, patch]

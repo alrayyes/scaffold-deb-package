@@ -1,0 +1,5 @@
+#!/bin/sh
+# Placeholder payload. This is what debian/example.install ships as
+# /usr/bin/example — replace it (and the .install line pointing at it) with
+# whatever your real package actually installs.
+echo "Hello from the example package"
