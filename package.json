@@ -17,6 +17,7 @@
     "lint:md": "markdownlint-cli2",
     "lint:prose": "./scripts/lint-prose.sh",
     "lint:mechanics": "./scripts/lint-mechanics.sh",
-    "build:deb": "./scripts/build-deb.sh"
+    "build:deb": "./scripts/build-deb.sh",
+    "verify:deb": "./scripts/verify-deb.sh"
   }
 }

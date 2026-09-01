@@ -62,6 +62,9 @@ jobs:
       - name: Build and lint the package
         run: ./scripts/build-deb.sh
 
+      - name: Install and verify the package actually works
+        run: ./scripts/verify-deb.sh
+
       # SLSA Build L2: a signed, Sigstore-backed attestation tying this exact
       # file to this workflow run. Provenance, not signing — the .deb itself
       # isn't cosign-signed, a separate decision left for whenever a real
