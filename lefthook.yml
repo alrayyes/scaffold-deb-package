@@ -67,7 +67,11 @@ pre-push:
     - name: mechanics
       run: bun run lint:mechanics
 
-    # Proves the package still builds and passes lintian before anyone
-    # pushes, in the same pinned container CI and the release job use.
+    # Proves the package still builds, passes lintian, and actually
+    # installs and works before anyone pushes, in the same pinned
+    # containers CI and the release job use. One job, not two: this whole
+    # group runs in parallel, and verify-deb.sh needs build-deb.sh's
+    # dist/*.deb to already exist, so the two can't be split into separate
+    # jobs here without racing each other.
     - name: build-deb
-      run: ./scripts/build-deb.sh
+      run: ./scripts/build-deb.sh && ./scripts/verify-deb.sh

@@ -9,9 +9,11 @@ This file is for whoever changes this template. The
   markdownlint, and the [lefthook](https://lefthook.dev) that runs the git
   hooks. There's a `package.json`, but nothing here is JavaScript; it exists
   only so those tools resolve and stay pinned.
-- **[Docker](https://docs.docker.com/get-docker/)** to build and lint the
-  package the same way CI does — inside the pinned `debian:bookworm-slim`
-  container `scripts/build-deb.sh` runs.
+- **[Docker](https://docs.docker.com/get-docker/)** to build, lint, and
+  install-test the package the same way CI does — inside the pinned
+  `debian:bookworm-slim` container `scripts/build-deb.sh` runs, and the
+  separate, non-slim `debian:bookworm` container `scripts/verify-deb.sh`
+  installs into afterwards.
 - Nothing else to install by hand. Vale and `ltex-cli-plus`, the two prose
   linters, fetch and cache their own pinned binaries on first use — there's
   no Go toolchain in this repo to `go install` them with.
@@ -37,6 +39,7 @@ bun run lint:md
 bun run lint:prose         # vale
 bun run lint:mechanics     # ltex-cli-plus
 bun run build:deb          # dpkg-buildpackage + lintian, in the pinned container
+bun run verify:deb         # dpkg -i the built .deb and prove it works, in a non-slim container
 ```
 
 ## How it fits together
@@ -51,10 +54,18 @@ thing a project stamped from this template does — see the README's
 done yet.
 
 `scripts/build-deb.sh` is the single source of truth for how the package
-gets built and linted: the pre-push hook, `ci.yml`, and `release.yml`'s
-artefact job all call it rather than each spelling out the same
-`dpkg-buildpackage`/`lintian` invocation, so the three can't quietly drift
-apart.
+gets built and linted, and `scripts/verify-deb.sh` is the single source of
+truth for how the built `.deb` gets install-tested: the pre-push hook,
+`ci.yml`, and `release.yml`'s artefact job all call both, in that order,
+rather than each spelling out the same `dpkg-buildpackage`/`lintian`/
+`dpkg -i` invocations, so the three can't quietly drift apart.
+
+`verify-deb.sh` runs in a separate, non-slim `debian:bookworm` container —
+deliberately not the `-slim` one `build-deb.sh` builds and lints in. The
+`-slim` variant path-excludes `/usr/share/man/*` and `/usr/share/doc/*`
+from every install, so `dpkg -i`/`dpkg -L` would report success and list
+those files as installed even if a doc or man page silently never landed
+on disk; installing in the full image is what actually catches that.
 
 ## The two version numbers
 

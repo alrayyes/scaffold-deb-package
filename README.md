@@ -41,20 +41,33 @@ project and delete this paragraph.
    between them, which is right for a project that only ever ships as a
    `.deb` and wrong for one with its own release cadence.
 5. Re-resolve `scripts/build-deb.sh`'s pinned `debian:bookworm-slim` digest
-   if you want a different Debian release as the build environment.
+   and `scripts/verify-deb.sh`'s pinned `debian:bookworm` digest if you want
+   a different Debian release as the build/install environment — the two
+   have to move together.
 
-## Building and linting locally
+## Building, linting, and install-testing locally
 
 ```sh
 git clone https://github.com/alrayyes/scaffold-deb-package.git
 cd scaffold-deb-package
 ./scripts/build-deb.sh
+./scripts/verify-deb.sh
 ```
 
-Builds the package with `dpkg-buildpackage -us -uc -b` and lints the result
-with `lintian`, both inside the same pinned `debian:bookworm-slim` container
-CI and the release job use — nothing has to be installed on the host beyond
-Docker. The `.deb` lands in `dist/`.
+`build-deb.sh` builds the package with `dpkg-buildpackage -us -uc -b` and
+lints the result with `lintian`, both inside the same pinned
+`debian:bookworm-slim` container CI and the release job use — nothing has
+to be installed on the host beyond Docker. The `.deb` lands in `dist/`.
+
+`verify-deb.sh` then installs that `.deb` with `dpkg -i` in a separate,
+**non-slim** `debian:bookworm` container and proves it actually works: every
+file `debian/*.install` says should exist gets read back from disk (not
+just checked against `dpkg -L`'s metadata), and the installed binary is run
+and its output checked. The non-slim image matters on its own —
+`debian:*-slim` path-excludes `/usr/share/man/*` and `/usr/share/doc/*`
+from every install, so installing inside the same `-slim` image the build
+uses would report success even when a doc or man page silently never
+landed on disk.
 
 [CONTRIBUTING.md](CONTRIBUTING.md) covers the rest of the toolchain — the
 prose linters, the git hooks, and how a change gets reviewed and released.
