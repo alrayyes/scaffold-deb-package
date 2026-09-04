@@ -17,6 +17,14 @@ permissions:
   pull-requests: read
   statuses: write
 
+# github.ref on pull_request_target is the base branch, not a per-PR ref
+# (the event runs in the base repo's context, unlike plain pull_request) —
+# grouping on it would cancel one pull request's title check with another's.
+# The PR number is what's actually per-run here.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
   check:
     runs-on: ubuntu-24.04
