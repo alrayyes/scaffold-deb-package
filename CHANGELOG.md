@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.2](https://github.com/alrayyes/scaffold-deb-package/compare/v0.2.1...v0.2.2) (2026-10-09)
+
+
+### Bug Fixes
+
+* **hooks:** lint only staged Markdown with vale in pre-commit ([c2fd1da](https://github.com/alrayyes/scaffold-deb-package/commit/c2fd1dab59ba177537e1d1b090920a05d534d759))
+* **hooks:** lint only staged Markdown with vale in pre-commit ([873c79b](https://github.com/alrayyes/scaffold-deb-package/commit/873c79b874418c76dd3e17cd904798868d428886))
+
 ## [0.2.1](https://github.com/alrayyes/scaffold-deb-package/compare/v0.2.0...v0.2.1) (2026-09-09)
 
 
