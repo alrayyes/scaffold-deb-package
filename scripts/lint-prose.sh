@@ -38,7 +38,14 @@ fi
 # The prose this repository wrote. A bare `vale .` also reads the generated
 # changelog and the README of every downloaded style package, and holds all of
 # them to house rules they were never written to.
-files=$(git ls-files '*.md' | grep -v '^CHANGELOG.md$' | grep -v '^\.claude/')
+#
+# With arguments, those are the files: the pre-commit hook passes the staged
+# list so a commit is judged on its own content. With none, the whole tree.
+if [ "$#" -gt 0 ]; then
+  files="$*"
+else
+  files=$(git ls-files '*.md' | grep -v '^CHANGELOG.md$' | grep -v '^\.claude/')
+fi
 
 echo "Checking:"
 echo "$files"
