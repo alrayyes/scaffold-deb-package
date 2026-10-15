@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.3](https://github.com/alrayyes/scaffold-deb-package/compare/v0.2.2...v0.2.3) (2026-10-15)
+
+
+### Bug Fixes
+
+* **ci:** run release-auto-merge when the autorelease label is added ([#28](https://github.com/alrayyes/scaffold-deb-package/issues/28)) ([8f63828](https://github.com/alrayyes/scaffold-deb-package/commit/8f638280e62198cc8077dc9cdf2a83295756311b)), closes [#27](https://github.com/alrayyes/scaffold-deb-package/issues/27)
+
 ## [0.2.2](https://github.com/alrayyes/scaffold-deb-package/compare/v0.2.1...v0.2.2) (2026-10-09)
 
 
