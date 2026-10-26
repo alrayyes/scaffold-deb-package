@@ -14,6 +14,8 @@ This file is for whoever changes this template. The
   `debian:bookworm-slim` container `scripts/build-deb.sh` runs, and the
   separate, non-slim `debian:bookworm` container `scripts/verify-deb.sh`
   installs into afterwards.
+- **[gitleaks](https://github.com/gitleaks/gitleaks)** for the secret-scan
+  hooks. CI runs it from its own pinned container image.
 - Nothing else to install by hand. Vale and `ltex-cli-plus`, the two prose
   linters, fetch and cache their own pinned binaries on first use — there's
   no Go toolchain in this repo to `go install` them with.

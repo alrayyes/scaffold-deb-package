@@ -8,10 +8,13 @@
 # a floating range drifts silently and there's nothing to raise a pull
 # request about.
 #
-# One pin Dependabot can't see, updated by hand: debian:bookworm-slim's
-# digest in scripts/build-deb.sh. It's digest-pinned but not in a manifest
-# any of Dependabot's ecosystems watch — re-resolve it from the tag when it
-# needs bumping.
+# Three pins Dependabot can't see, updated by hand: debian:bookworm-slim's
+# digest in scripts/build-deb.sh, debian:bookworm's digest in
+# scripts/verify-deb.sh, and the gitleaks image in
+# .github/workflows/gitleaks.yml (automation tracked in
+# alrayyes/dotfiles#938). All are digest-pinned but not in a manifest any
+# of Dependabot's ecosystems watch — re-resolve them from the tag when they
+# need bumping.
 version: 2
 
 updates:
