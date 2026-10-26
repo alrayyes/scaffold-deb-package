@@ -11,6 +11,9 @@ pre-commit:
     # Prettier decides the layout, markdownlint then judges what Prettier
     # produced. The other order has markdownlint fixing something Prettier is
     # about to overwrite.
+    - name: gitleaks
+      run: gitleaks git --staged --redact --no-banner
+
     - name: prettier
       glob: "*.{md,yml,yaml}"
       run: bunx prettier --write {staged_files}
@@ -45,9 +48,15 @@ commit-msg:
 #
 # Parallel because of that: nothing here touches a file, so no job can be
 # reading what another is rewriting.
+#
+# gitleaks scans the whole history rather than the unpushed range: it takes a
+# second or two at this size, and CI does the same (rules/secrets.md).
 pre-push:
   parallel: true
   jobs:
+    - name: gitleaks
+      run: gitleaks git --redact --no-banner
+
     # These are `package.json` scripts rather than the commands spelled out,
     # because CI runs the same ones and a literal copied into two files drifts
     # the first time somebody edits one of them.
