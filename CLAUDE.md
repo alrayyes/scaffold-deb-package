@@ -32,7 +32,7 @@ Full list and what each one does: [CONTRIBUTING.md](CONTRIBUTING.md).
   as a backstop, not a replacement for the discipline.
 - **No Go toolchain anywhere in this repo, deliberately.** The other Go
   scaffolds `go install` Vale, `ltex-cli-plus`, and gitleaks; this one has
-  no `go.mod` to justify a Go install, so Vale and LTeX are plain pinned
+  no `go.mod` to justify a Go install, so Vale and `ltex-cli-plus` are plain pinned
   release-archive downloads instead — see `scripts/lint-prose.sh` and
   `scripts/lint-mechanics.sh`. gitleaks runs in CI from its digest-pinned
   container image (`.github/workflows/gitleaks.yml`) and locally from your
