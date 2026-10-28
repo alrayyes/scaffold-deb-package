@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.4](https://github.com/alrayyes/scaffold-deb-package/compare/v0.2.3...v0.2.4) (2026-10-28)
+
+
+### Bug Fixes
+
+* **ci:** stop release-auto-merge cancelling its own labeled run ([#37](https://github.com/alrayyes/scaffold-deb-package/issues/37)) ([8248b13](https://github.com/alrayyes/scaffold-deb-package/commit/8248b13b5ff85d329264d23c850d36ef8d0e6857)), closes [#36](https://github.com/alrayyes/scaffold-deb-package/issues/36)
+
 ## [0.2.3](https://github.com/alrayyes/scaffold-deb-package/compare/v0.2.2...v0.2.3) (2026-10-15)
 
 
