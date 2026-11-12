@@ -18,7 +18,10 @@ This file is for whoever changes this template. The
   hooks. CI runs it from its own pinned container image.
 - Nothing else to install by hand. Vale and `ltex-cli-plus`, the two prose
   linters, fetch and cache their own pinned binaries on first use — there's
-  no Go toolchain in this repo to `go install` them with.
+  no Go toolchain in this repo to `go install` them with. The pre-push hook
+  runs `ltex-cli-plus` only on the Markdown in your push, and on all of it
+  when `.ltex.json` or `scripts/lint-mechanics.sh` changed. CI, and
+  `bun run lint:mechanics` by hand, check every document.
 
 One command installs the linters and the git hooks:
 
@@ -39,7 +42,7 @@ Every one of these is what a hook or CI runs — see `lefthook.yml` and
 bun run format:check       # prettier --check, add --write to fix
 bun run lint:md
 bun run lint:prose         # vale
-bun run lint:mechanics     # ltex-cli-plus
+bun run lint:mechanics     # ltex-cli-plus, every document
 bun run build:deb          # dpkg-buildpackage + lintian, in the pinned container
 bun run verify:deb         # dpkg -i the built .deb and prove it works, in a non-slim container
 ```
