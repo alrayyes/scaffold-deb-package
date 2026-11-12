@@ -56,6 +56,8 @@ jobs:
         run: bun run format:check
       - name: markdownlint
         run: bun run lint:md
+      - name: check the mechanics hook
+        run: scripts/test-lint-mechanics.sh
 
   # A hook is something you can skip, and the version number depends on
   # these messages being right, so the whole branch is checked here too.
